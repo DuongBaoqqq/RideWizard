@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.welcome.OnboardingFragment"
+    android:orientation="vertical"
+    android:weightSum="2">
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_onboarding"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="40dp"
+                android:text="Request Ride"/>
+            <TextView
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Request a ride get picked up by \n a nearby community driver"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/next"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Next"/>
+
+    </FrameLayout>
+
+
+
+
+</LinearLayout>
