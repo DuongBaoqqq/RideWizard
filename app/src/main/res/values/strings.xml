@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">RideWizard</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bt_save">Save</string>
+    <string name="change_password">Change Password</string>
+    <string name="title_ole">Enter Old Password</string>
+    <string name="title_new">Enter Old Password</string>
+    <string name="title_re_new">Enter Old Password</string>
+    <string name="holder_old">Old password</string>
+    <string name="holder_new">New password</string>
+    <string name="holder_re_new">Re enter new password</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
 </resources>
