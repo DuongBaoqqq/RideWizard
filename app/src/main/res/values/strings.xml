@@ -11,4 +11,11 @@
     <string name="holder_re_new">Re enter new password</string>
     <string name="about_us">About Us</string>
     <string name="contact_us">Contact Us</string>
+    <string name="setting">Setting</string>
+    <string name="region">Region</string>
+    <string name="language">Language</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="term_of_use">Term of use</string>
+    <string name="delete">Delete Account</string>
+    <string name="geolocation">Geolocation</string>
 </resources>

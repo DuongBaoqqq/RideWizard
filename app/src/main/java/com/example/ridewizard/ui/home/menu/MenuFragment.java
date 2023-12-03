@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ridewizard.R;
-import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
+import com.example.ridewizard.ui.home.menu.setting.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
 
