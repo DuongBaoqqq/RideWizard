@@ -1,18 +1,14 @@
 package com.example.ridewizard.ui.home.menu.about_us;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.ridewizard.R;
-import com.example.ridewizard.ui.home.menu.MenuFragment;
-import com.example.ridewizard.ui.welcome.MainActivity;
 
 public class AboutUsActivity extends AppCompatActivity{
     ImageButton bt_back;
@@ -29,7 +25,7 @@ public class AboutUsActivity extends AppCompatActivity{
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // quay lại trang menu
+                finish();
             }
 
         });

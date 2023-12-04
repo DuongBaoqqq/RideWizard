@@ -29,7 +29,7 @@ public class UserDAO {
     public Call<ProfileResponse> getProfileById(String token,int id){
         return service.getProfileById(token,id);
     }
-    public Call<ChangePasswordResponse> changePassword(String oldPassword, String newPassword, String reNewPassword) {
-        return service.changePassword(oldPassword, newPassword, reNewPassword);
+    public Call<ChangePasswordResponse> changePassword(String token,String oldPassword, String newPassword) {
+        return service.changePassword(token,oldPassword, newPassword);
     }
 }
