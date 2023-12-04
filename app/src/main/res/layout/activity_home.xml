@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
-    <FrameLayout
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_marginBottom="70dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frag"/>
+        android:layout_height="match_parent"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         app:menu="@menu/bottom_navigation"
+        style="@style/Widget.Material3.AppBarLayout"
+        android:animateLayoutChanges="false"
         android:background="@drawable/bg_navigation"
         android:layout_gravity="bottom"
         app:labelVisibilityMode="labeled"
