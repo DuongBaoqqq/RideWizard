@@ -1,20 +1,26 @@
 package com.example.ridewizard.API.service;
 
+import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 import com.example.ridewizard.model.profile.ProfileResponse;
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
 
-import java.io.File;
+
 
 import okhttp3.MultipartBody;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+
 import retrofit2.http.Multipart;
+
+import retrofit2.http.PATCH;
+
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -40,6 +46,9 @@ public interface UserService {
     Call<Verify> requestVerifyOTP(@Header("Authorization") String token);
     @GET("/api/v1/users/{id}")
     Call<ProfileResponse> getProfileById(@Header("Authorization") String token,@Path("id") int userId);
-
+    @PATCH("/api/v1/users/change-password")
+    Call<ChangePasswordResponse> changePassword(@Field("old_password") String oldPassword,
+                                                @Field("new_password") String newPassword,
+                                                @Field("re_new_password") String reNewPassword);
 
 }

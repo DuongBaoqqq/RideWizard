@@ -32,7 +32,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBivdveQCoYAhOEMd0xCUlKsPKSaq6nSA8" />
-
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
@@ -42,6 +41,11 @@
         <activity
             android:name=".ui.welcome.LoginRegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.welcome.ChangePasswordActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.home.menu.about_us.AboutUsActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.welcome.MainActivity"
             android:exported="true">

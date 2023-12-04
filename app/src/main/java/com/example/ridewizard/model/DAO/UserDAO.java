@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.ridewizard.API.APIClient;
 import com.example.ridewizard.API.service.UserService;
+import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 import com.example.ridewizard.model.profile.ProfileResponse;
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 import com.example.ridewizard.model.user.UserResponse;
@@ -38,13 +39,18 @@ public class UserDAO {
     public Call<ProfileResponse> getProfileById(String token,int id){
         return service.getProfileById(token,id);
     }
+
     public Call<Verify> verifyOTP(String token, String otp){
         return service.verifyOTP(token, otp);
     }
     public Call<Verify> requestVerifyOTP(String token){
         return service.requestVerifyOTP(token);
     }
-    public Call<UploadAvatar> uploadAvatar(String token, MultipartBody.Part file){
-        return service.uploadAvatar(token,file);
+    public Call<UploadAvatar> uploadAvatar(String token, MultipartBody.Part file) {
+        return service.uploadAvatar(token, file);
+    }
+
+    public Call<ChangePasswordResponse> changePassword(String oldPassword, String newPassword, String reNewPassword) {
+        return service.changePassword(oldPassword, newPassword, reNewPassword);
     }
 }

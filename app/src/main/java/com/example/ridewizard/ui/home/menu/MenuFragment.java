@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -12,10 +13,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ridewizard.R;
+import com.example.ridewizard.ui.home.menu.setting.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
 
@@ -25,6 +28,8 @@ public class MenuFragment extends Fragment {
     TextView userName;
     AppCompatButton btnLogout;
     @SuppressLint("MissingInflatedId")
+    FrameLayout about_us;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class MenuFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        about_us = view.findViewById(R.id.about_us);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +59,18 @@ public class MenuFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLink("https://www.ridewizard.pro/about");
+            }
+        });
         return view;
+    }
+    private void openLink(String link) {
+        // Mở liên kết trong trình duyệt hoặc thực hiện hành động mong muốn
+        Uri uri = Uri.parse(link);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }
