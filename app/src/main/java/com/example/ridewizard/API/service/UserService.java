@@ -25,7 +25,8 @@ public interface UserService {
     Call<ProfileResponse> getProfileById(@Header("Authorization") String token, @Path("id") int userId);
 
     @PATCH("/api/v1/users/change-password")
-    Call<ChangePasswordResponse> changePassword(@Field("old_password") String oldPassword,
-                                                @Field("new_password") String newPassword,
-                                                @Field("re_new_password") String reNewPassword);
+    Call<ChangePasswordResponse> changePassword(@Header("Authorization") String token,
+                                                @Field("old_password") String oldPassword,
+                                                @Field("new_password") String newPassword);
+
 }

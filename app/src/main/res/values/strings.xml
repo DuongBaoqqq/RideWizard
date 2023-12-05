@@ -18,4 +18,9 @@
     <string name="term_of_use">Term of use</string>
     <string name="delete">Delete Account</string>
     <string name="geolocation">Geolocation</string>
+    <string name="current">Current</string>
+    <string name="map">Map</string>
+    <string name="order">Order</string>
+    <string name="chat">Chat</string>
+    <string name="more">More</string>
 </resources>

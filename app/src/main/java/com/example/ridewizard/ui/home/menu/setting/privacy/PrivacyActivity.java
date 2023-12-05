@@ -1,4 +1,4 @@
-package com.example.ridewizard.ui.home.menu.setting.about_us;
+package com.example.ridewizard.ui.home.menu.setting.privacy;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,22 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ridewizard.R;
 
-public class AboutUsActivity extends AppCompatActivity{
+public class PrivacyActivity  extends AppCompatActivity {
     ImageButton bt_back;
     WebView webView;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
+        setContentView(R.layout.activity_privacy);
         bt_back = findViewById(R.id.bt_back);
         webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.ridewizard.pro/about");
+        webView.loadUrl("https://www.ridewizard.pro/policy-privacy");
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // quay lại trang menu
+                finish();
             }
 
         });
