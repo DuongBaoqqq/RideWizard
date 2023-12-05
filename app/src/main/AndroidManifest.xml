@@ -36,6 +36,8 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
+        <activity android:name=".ui.driver.DriverActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.welcome.login.VerifyCodeActivity"
             android:exported="false" />
