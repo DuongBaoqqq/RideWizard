@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         navigation = findViewById(R.id.navigation);
         PagerAdapter adapter = new PagerAdapter(this);
         viewPager.setAdapter(adapter);
+        viewPager.setUserInputEnabled(false);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
