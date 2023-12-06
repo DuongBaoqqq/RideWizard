@@ -26,9 +26,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
-import com.example.ridewizard.model.profile.ProfileResponse;
-import com.example.ridewizard.model.profile.User;
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
+import com.example.ridewizard.model.user.User;
+import com.example.ridewizard.model.user.UserResponse;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,9 +81,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        UserDAO.getInstance().getProfileById(token,userId).enqueue(new Callback<ProfileResponse>() {
+        UserDAO.getInstance().getProfileById(token,userId).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if(response.isSuccessful()){
                     User data = response.body().getData().getUser();
                     if(data.getAvatar() == null){
@@ -101,7 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("access token", "onFailure: " + t.getMessage());
             }
         });

@@ -33,7 +33,7 @@ public interface UserService {
     @FormUrlEncoded
     @POST("/api/v1/users/signup")
     Call<UserResponse> signUp(@Field("fullName") String userName, @Field("email") String email,
-                             @Field("phNo") String phoneNB,@Field("password") String password);
+                              @Field("phNo") String phoneNB, @Field("password") String password);
     @FormUrlEncoded
     @POST("/api/v1/auth/otp/phone/verify")
     Call<Verify> verifyOTP(@Header("Authorization") String token, @Field("otp") String otp);
@@ -45,7 +45,7 @@ public interface UserService {
     @GET("/api/v1/auth/otp/email")
     Call<Verify> requestVerifyOTP(@Header("Authorization") String token);
     @GET("/api/v1/users/{id}")
-    Call<ProfileResponse> getProfileById(@Header("Authorization") String token,@Path("id") int userId);
+    Call<UserResponse> getProfileById(@Header("Authorization") String token,@Path("id") int userId);
     @PATCH("/api/v1/users/change-password")
 
     Call<ChangePasswordResponse> changePassword(@Header("Authorization") String token,

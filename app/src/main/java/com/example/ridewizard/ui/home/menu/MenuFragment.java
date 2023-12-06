@@ -24,6 +24,7 @@ import com.example.ridewizard.ui.driver.DriverActivity;
 import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
+import com.example.ridewizard.ui.home.menu.setting.SettingActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
 
 import com.example.ridewizard.ui.home.menu.setting.SettingFragment;
@@ -79,11 +80,13 @@ public class MenuFragment extends Fragment {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assert getFragmentManager() != null;
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frag, new SettingFragment());
-                transaction.addToBackStack(null); // Nếu bạn muốn thêm vào ngăn xếp quay lại (back stack)
-                transaction.commit();
+//                assert getFragmentManager() != null;
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frag, new SettingFragment());
+//                transaction.addToBackStack(null); // Nếu bạn muốn thêm vào ngăn xếp quay lại (back stack)
+//                transaction.commit();
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
             }
         });
         work_as_driver.setOnClickListener(new View.OnClickListener() {

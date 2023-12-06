@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -52,48 +51,49 @@ public class LoginFragment extends Fragment {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("loginnnnnn", "login:");
-//                Intent intent = new Intent(getContext(), HomeActivity.class);
-//                startActivity(intent);
-//                if(!Regex.validateEmail(userName.getText().toString())){
-//                    checkMail.setVisibility(View.VISIBLE);
-//                    Log.d("loginnnnnn", "login: validateEmail" );
-//                }
-//                else if(!Regex.validatePassword(password.getText().toString())){
-//                    checkPassword.setVisibility(View.VISIBLE);
-//                    Log.d("loginnnnnn", "login: validatePassword" );
-//                }
-//                else {
+
+                Intent intent = new Intent(getContext(), HomeActivity.class);
+                startActivity(intent);
+                if(!Regex.validateEmail(userName.getText().toString())){
+                    checkMail.setVisibility(View.VISIBLE);
+                    Log.d("loginnnnnn", "login: validateEmail" );
+                }
+                else if(!Regex.validatePassword(password.getText().toString())){
+                    checkPassword.setVisibility(View.VISIBLE);
+                    Log.d("loginnnnnn", "login: validatePassword" );
+                }
+                else {
                     UserDAO.getInstance().login(userName.getText().toString(),password.getText().toString(),"email").enqueue(new Callback<UserResponse>() {
                         @Override
                         public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                            Log.d("loginnnnnn", "login:");
 
-
-                            if(response.isSuccessful()){
-//                                if(response.body().getStatus() == 402){
-//                                    checkMail.setVisibility(View.VISIBLE);
-//                                }else if(response.body().getStatus() == 409){
-//                                    checkPassword.setVisibility(View.VISIBLE);
-//                                }else {
+                            if(response.isSuccessful()) {
+                                if (response.body().getStatus() == 402) {
+                                    checkMail.setVisibility(View.VISIBLE);
+                                } else if (response.body().getStatus() == 409) {
+                                    checkPassword.setVisibility(View.VISIBLE);
+                                } else {
 
                                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putInt("userId",response.body().getData().getUser().getId());
-                                    editor.putString("userName",response.body().getData().getUser().getFullName());
-                                    editor.putString("accessToken",response.body().getData().getAccessToken());
+                                    editor.putInt("userId", response.body().getData().getUser().getId());
+                                    editor.putString("userName", response.body().getData().getUser().getFullName());
+                                    editor.putString("accessToken", response.body().getData().getAccessToken());
                                     APIClient.getInstance().setAccessToken(response.body().getData().getAccessToken());
                                     editor.apply();
                                     checkMail.setVisibility(View.GONE);
                                     checkMail.setVisibility(View.GONE);
                                     Intent intent = new Intent(getContext(), HomeActivity.class);
                                     startActivity(intent);
-                                    Log.d("loginnnnnn", "login: " + response     );
+                                    Log.d("loginnnnnn", "login: " + response);
                                 }
-//                            }else{
-//                                Log.d("loginnnnnn", "onResponse: " +response.message());
-//                                checkPassword.setVisibility(View.VISIBLE);
-//                                checkMail.setVisibility(View.VISIBLE);
-//                            }
+//                                }else{
+//                                    Log.d("loginnnnnn", "onResponse: " + response.message());
+//                                    checkPassword.setVisibility(View.VISIBLE);
+//                                    checkMail.setVisibility(View.VISIBLE);
+//                                }
+                            }
                         }
 
                         @Override
@@ -102,7 +102,7 @@ public class LoginFragment extends Fragment {
 
                         }
                     });
-//                }
+                }
             }
         });
         forgotPassword.setOnClickListener(new View.OnClickListener() {

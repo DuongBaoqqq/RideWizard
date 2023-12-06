@@ -1,7 +1,5 @@
 package com.example.ridewizard.model.DAO;
 
-import android.util.Log;
-
 import com.example.ridewizard.API.APIClient;
 import com.example.ridewizard.API.service.UserService;
 import com.example.ridewizard.model.change_password.ChangePasswordResponse;
@@ -9,8 +7,6 @@ import com.example.ridewizard.model.profile.ProfileResponse;
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
-
-import java.io.File;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -36,7 +32,7 @@ public class UserDAO {
         return service.signUp(userName,email,phone,password);
     }
 
-    public Call<ProfileResponse> getProfileById(String token,int id){
+    public Call<UserResponse> getProfileById(String token,int id){
         return service.getProfileById(token,id);
     }
 
