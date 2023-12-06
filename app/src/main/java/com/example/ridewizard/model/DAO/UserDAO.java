@@ -49,8 +49,8 @@ public class UserDAO {
     public Call<UploadAvatar> uploadAvatar(String token, MultipartBody.Part file) {
         return service.uploadAvatar(token, file);
     }
+    public Call<ChangePasswordResponse> changePassword(String token,String oldPassword, String newPassword) {
+        return service.changePassword(token,oldPassword, newPassword);
 
-    public Call<ChangePasswordResponse> changePassword(String oldPassword, String newPassword, String reNewPassword) {
-        return service.changePassword(oldPassword, newPassword, reNewPassword);
     }
 }

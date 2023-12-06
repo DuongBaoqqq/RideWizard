@@ -9,7 +9,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ridewizard.R;
-import com.example.ridewizard.ui.home.menu.setting.about_us.AboutUsActivity;
+import com.example.ridewizard.ui.driver.DriverActivity;
+import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
+
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
+
+import com.example.ridewizard.ui.home.menu.setting.SettingFragment;
+
 
 
 public class MenuFragment extends Fragment {
@@ -29,6 +36,8 @@ public class MenuFragment extends Fragment {
     AppCompatButton btnLogout;
     @SuppressLint("MissingInflatedId")
     FrameLayout about_us;
+    FrameLayout setting;
+    FrameLayout work_as_driver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +61,8 @@ public class MenuFragment extends Fragment {
             }
         });
         about_us = view.findViewById(R.id.about_us);
+        setting = view.findViewById(R.id.setting);
+        work_as_driver = view.findViewById(R.id.work_as_driver);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +74,24 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openLink("https://www.ridewizard.pro/about");
+            }
+        });
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assert getFragmentManager() != null;
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frag, new SettingFragment());
+                transaction.addToBackStack(null); // Nếu bạn muốn thêm vào ngăn xếp quay lại (back stack)
+                transaction.commit();
+            }
+        });
+        work_as_driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DriverActivity.class);
+                Log.d("DriverActivity","DriverActivity1245345785555");
+                startActivity(intent);
             }
         });
         return view;

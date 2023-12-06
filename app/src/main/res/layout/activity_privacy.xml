@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.menu.about_us.AboutUsActivity"
+    tools:context=".ui.home.menu.setting.privacy.PrivacyActivity"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="@string/about_us"
+            android:text="@string/privacy"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="30sp"/>

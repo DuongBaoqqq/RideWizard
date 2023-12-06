@@ -35,6 +35,9 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
+        <activity android:name=".ui.driver.DriverActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.welcome.login.VerifyCodeActivity"
             android:exported="false" />
@@ -42,9 +45,19 @@
             android:name=".ui.welcome.LoginRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.welcome.ChangePasswordActivity"
+            android:name=".ui.home.menu.setting.change_password.ChangePasswordActivity"
             android:exported="false"/>
-        <activity android:name=".ui.home.menu.about_us.AboutUsActivity"
+        <activity
+            android:name=".ui.home.menu.about_us.AboutUsActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.home.menu.setting.contact_us.ContactUsActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.home.menu.setting.term_of_use.TermOfUseActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.home.menu.setting.privacy.PrivacyActivity"
             android:exported="false"/>
         <activity
             android:name=".ui.welcome.MainActivity"
