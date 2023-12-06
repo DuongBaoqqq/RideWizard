@@ -23,4 +23,18 @@
     <string name="order">Order</string>
     <string name="chat">Chat</string>
     <string name="more">More</string>
+    <string name="your_location">Your location</string>
+    <string name="auto">AUTO</string>
+    <string name="name">Do Minh Quan</string>
+    <string name="show">Show</string>
+    <string name="system_notifications">System notifications</string>
+    <string name="notification_a_orders">Notifications about orders</string>
+    <string name="city">City</string>
+    <string name="support">Support</string>
+    <string name="services">Services</string>
+    <string name="money">Money</string>
+    <string name="follow">Follow us</string>
+    <string name="about">About</string>
+    <string name="switch_to_user">Switch to User</string>
+    <string name="logout">Log out</string>
 </resources>
