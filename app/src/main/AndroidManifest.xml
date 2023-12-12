@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -59,6 +63,9 @@
             android:exported="false"/>
         <activity
             android:name=".ui.home.menu.setting.privacy.PrivacyActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.driver.more.profile.profileScreenDetail.UploadImageActivity"
             android:exported="false"/>
         <activity
             android:name=".ui.welcome.MainActivity"
