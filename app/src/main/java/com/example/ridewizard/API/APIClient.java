@@ -1,8 +1,9 @@
 package com.example.ridewizard.API;
 
-import android.util.Log;
-
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,7 +21,6 @@ public class APIClient {
                 .client(httpClient.build())
                 .build();
     }
-
 
     private APIClient() {
 //        Log.d("access token", "getProfileById: " + accessToken);

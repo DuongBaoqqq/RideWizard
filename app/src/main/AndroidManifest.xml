@@ -64,6 +64,9 @@
             android:name=".ui.home.menu.setting.privacy.PrivacyActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.driver.more.profile.profileScreenDetail.UploadImageActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.welcome.MainActivity"
             android:exported="true">
             <intent-filter>
