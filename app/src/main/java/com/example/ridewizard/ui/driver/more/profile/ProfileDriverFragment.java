@@ -15,10 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
-import com.example.ridewizard.model.profile.ProfileResponse;
-import com.example.ridewizard.model.profile.User;
-import com.example.ridewizard.model.uploadImage.Driver;
-import com.example.ridewizard.model.uploadImage.ProfileDriver;
+import com.example.ridewizard.model.user.User;
+import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.ui.driver.more.profile.profileScreenDetail.UploadImageActivity;
 
 import java.util.ArrayList;
@@ -89,19 +87,14 @@ public class ProfileDriverFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId",0);
         String token = "Bearer " + sharedPreferences.getString("accessToken","");
-        UserDAO.getInstance().getProfileById(token,userId).enqueue(new Callback<ProfileResponse>() {
+        UserDAO.getInstance().getProfileById(token,userId).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-//                Driver data = response.body().getData().getDriver();
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 User data = response.body().getData().getUser();
                 if(response.isSuccessful()){
                     listItemTTProfiles.get(0).setText(String.valueOf(data.getId()));
                     listItemTTProfiles.get(1).setText(data.getPhNo());
-//                    listItemTTProfiles.get(2).setText(data.getVehicle());
-//                    listItemTTProfiles.get(3).setText(data.getPriority_and_decreased());
                     listItemTTProfiles.get(4).setText(data.getEmail());
-//                    listItemTTProfiles.get(5).setText(data.getClient_promo());
-//                    listItemTTProfiles.get(6).setText(data.getDriver_recruiter());
                 }
                 else {
                     Log.d("access token", "onResponse: " + response.body().getStatus());
@@ -109,8 +102,9 @@ public class ProfileDriverFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("access token", "onFailure: " + t.getMessage());
+
             }
         });
         return view;

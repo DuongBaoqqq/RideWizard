@@ -12,6 +12,7 @@ import com.example.ridewizard.ui.driver.current.CurrentFragment;
 import com.example.ridewizard.ui.driver.map.MapFragment;
 import com.example.ridewizard.ui.driver.more.MoreFragment;
 import com.example.ridewizard.ui.driver.order.OrderDriverFragment;
+import com.example.ridewizard.util.LocalDataUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -26,7 +27,6 @@ public class DriverActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_driver);
-
         currentFragment = new CurrentFragment();
         chatFragment = new ChatFragment();
         orderDriverFragment = new OrderDriverFragment();

@@ -9,9 +9,11 @@ import android.view.MenuItem;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.ui.home.history.HistoryFragment;
+import com.example.ridewizard.ui.home.listener.ContactActivity;
 import com.example.ridewizard.ui.home.map.MapsFragment;
 import com.example.ridewizard.ui.home.menu.MenuFragment;
 import com.example.ridewizard.ui.home.order.OrderFragment;
+import com.example.ridewizard.util.LocalDataUser;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -19,6 +21,12 @@ import com.google.android.material.navigation.NavigationBarView;
 public class HomeActivity extends AppCompatActivity {
     BottomNavigationView navigation;
     ViewPager2 viewPager;
+    ContactActivity contactActivity = new ContactActivity() {
+        @Override
+        public void finishActivity() {
+            finish();
+        }
+    };
 
 
     @Override
@@ -27,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         viewPager = findViewById(R.id.pager);
         navigation = findViewById(R.id.navigation);
-        PagerAdapter adapter = new PagerAdapter(this);
+        PagerAdapter adapter = new PagerAdapter(this,contactActivity);
         viewPager.setAdapter(adapter);
         viewPager.setUserInputEnabled(false);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
