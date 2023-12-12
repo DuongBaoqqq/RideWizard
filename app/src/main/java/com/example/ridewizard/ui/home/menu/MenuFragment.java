@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.ui.driver.DriverActivity;
+import com.example.ridewizard.ui.home.listener.ContactActivity;
 import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
@@ -28,7 +29,7 @@ import com.example.ridewizard.ui.home.menu.setting.SettingActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
 
 import com.example.ridewizard.ui.home.menu.setting.SettingFragment;
-
+import com.example.ridewizard.util.LocalDataUser;
 
 
 public class MenuFragment extends Fragment {
@@ -39,6 +40,14 @@ public class MenuFragment extends Fragment {
     FrameLayout about_us;
     FrameLayout setting;
     FrameLayout work_as_driver;
+    ContactActivity contactActivity;
+
+    public MenuFragment(ContactActivity contactActivity) {
+        this.contactActivity = contactActivity;
+    }
+
+    public MenuFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,15 +55,15 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         userName = view.findViewById(R.id.user_name);
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        userName.setText(sharedPreferences.getString("userName","User").toString());
+        String name = LocalDataUser.getInstance(getContext()).getUserName();
+        userName.setText(name);
         profile = view.findViewById(R.id.profile);
         btnLogout = view.findViewById(R.id.log_out);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("accessToken");
+                SharedPreferences.Editor editor = LocalDataUser.getInstance(getContext()).getEditor();
+                editor.clear();
                 editor.apply();
                 Intent intent = new Intent(getContext(), LoginRegisterActivity.class);
                 startActivity(intent);
@@ -93,8 +102,13 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DriverActivity.class);
-                Log.d("DriverActivity","DriverActivity1245345785555");
+                LocalDataUser.getInstance(getContext()).setCurrentType(true);
+                Log.d("DriverActivityyyyy", String.valueOf(LocalDataUser.getInstance(getContext()).isDriverType()));
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+
+
             }
         });
         return view;

@@ -19,6 +19,7 @@
         app:itemIconTint="@color/item_navigation"
         app:itemTextColor="@color/item_navigation"
         android:id="@+id/navigation"
+        app:itemActiveIndicatorStyle="@style/Widget.Material3.Button.ElevatedButton"
         />
 
 </FrameLayout>

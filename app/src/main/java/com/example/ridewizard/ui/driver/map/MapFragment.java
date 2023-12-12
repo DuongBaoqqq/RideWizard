@@ -37,24 +37,23 @@ public class MapFragment extends Fragment {
 
 
         @Override
-        public void onMapReady(GoogleMap googleMap) {
+        public void onMapReady(@NonNull GoogleMap googleMap) {
 //            LatLng sydney = new LatLng(-34, 151);
 //            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, YOUR_REQUEST_CODE);
-            } else {
-
-                fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
-                    if (location != null) {
-                        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                        googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("Your Location"));
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-                    } else {
-                        Log.d("MapsActivity", "Location is null");
-                    }
-                });
             }
+
+            fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
+                if (location != null) {
+                    LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("Your Location"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+                } else {
+                    Log.d("MapsActivity", "Location is null");
+                }
+            });
         }
     };
 

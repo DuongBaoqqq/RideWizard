@@ -21,6 +21,7 @@ import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.ui.home.HomeActivity;
+import com.example.ridewizard.util.LocalDataUser;
 import com.example.ridewizard.util.Regex;
 
 import retrofit2.Call;
@@ -75,16 +76,17 @@ public class LoginFragment extends Fragment {
                                     checkPassword.setVisibility(View.VISIBLE);
                                 } else {
 
-                                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    SharedPreferences.Editor editor = LocalDataUser.getInstance(getContext()).getEditor();
                                     editor.putInt("userId", response.body().getData().getUser().getId());
                                     editor.putString("userName", response.body().getData().getUser().getFullName());
                                     editor.putString("accessToken", response.body().getData().getAccessToken());
+                                    LocalDataUser.getInstance(getContext()).setCurrentType(false);
                                     APIClient.getInstance().setAccessToken(response.body().getData().getAccessToken());
                                     editor.apply();
                                     checkMail.setVisibility(View.GONE);
                                     checkMail.setVisibility(View.GONE);
                                     Intent intent = new Intent(getContext(), HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     Log.d("loginnnnnn", "login: " + response);
                                 }
@@ -99,7 +101,6 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onFailure(Call<UserResponse> call, Throwable t) {
                             Log.d("loginnnnnn", "login: " + t.getMessage());
-
                         }
                     });
                 }

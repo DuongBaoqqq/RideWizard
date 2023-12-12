@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.github.yalantis:ucrop:2.2.6")
     implementation ("com.google.maps:google-maps-services:0.15.0")
     implementation ("com.google.android.libraries.places:places:3.3.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")

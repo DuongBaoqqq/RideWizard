@@ -2,17 +2,15 @@ package com.example.ridewizard.ui.home.menu.profile;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,12 +24,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
-import com.example.ridewizard.model.uploadavatar.UploadAvatar;
+import com.example.ridewizard.model.uploadavatar.AvatarResponse;
 import com.example.ridewizard.model.user.User;
 import com.example.ridewizard.model.user.UserResponse;
+import com.example.ridewizard.util.LocalDataUser;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +43,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
-//    private ActivityResultLauncher<Intent> pickImageLauncher;
     TextView userName;
     EditText email;
     EditText phone;
@@ -64,9 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         avatar = findViewById(R.id.avatar);
         back = findViewById(R.id.back);
-        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId",0);
-        token = "Bearer " + sharedPreferences.getString("accessToken","");
+        int userId = LocalDataUser.getInstance(getApplicationContext()).getUserId();
+        token = "Bearer " + LocalDataUser.getInstance(getApplicationContext()).getToken();
 
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,31 +126,11 @@ public class ProfileActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
     result -> {
         if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-            // Xử lý đường dẫn của ảnh đã chọn từ thư viện
             Uri selectedImageUri = result.getData().getData();
             if(selectedImageUri != null){
                 handleImageUpload(selectedImageUri);
 
             }
-//            Bitmap bitmap = uriToBitmap(selectedImageUri);
-//
-//            File imageFile = new File(getCacheDir(), "image.png");
-//            try {
-//                FileOutputStream fos = new FileOutputStream(imageFile);
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-//                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "image.png");
-//                    MultipartBody.Part multipartBody =MultipartBody.Part.createFormData("file",imageFile.getName(),requestFile);
-//                    UserDAO.getInstance().uploadAvatar(token,multipartBody);
-//                }
-//                fos.flush();
-//                fos.close();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                // Xử lý nếu có lỗi xảy ra trong quá trình lưu hình ảnh
-//            }
         }
         else {
             Log.d("imageeeee", "result: "+ result);
@@ -164,34 +141,27 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             Bitmap bitmap = uriToBitmap(selectedImageUri);
 
-            // Tiếp tục xử lý bitmap và tạo file
             File imageFile = createImageFile(bitmap);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageFile);
 
-            // Tạo RequestBody từ file
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file", "avatar.jpeg", requestFile);
 
-            // Tạo MultipartBody.Part từ RequestBody
-            MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile);
-
-            // Gọi API upload với multipartBody
-            UserDAO.getInstance().uploadAvatar(token, multipartBody).enqueue(new Callback<UploadAvatar>() {
+            UserDAO.getInstance().uploadAvatar(token, part).enqueue(new Callback<AvatarResponse>() {
                 @Override
-                public void onResponse(Call<UploadAvatar> call, Response<UploadAvatar> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("profileeee", "onResponse: " + response.body().getStatus());
-                    } else {
-                        Log.d("profileeee", "onResponse: " + response);
+                public void onResponse(@NonNull Call<AvatarResponse> call, @NonNull Response<AvatarResponse> response) {
+                    if(response.isSuccessful()){
+                        Log.d("profileeee", "onResponse: "+response.body().getMessage());
+                    }else {
+                        Log.d("profileeee", "onResponse: "+response);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<UploadAvatar> call, Throwable t) {
-                    Log.d("profileeee", "onResponse: " + t.getMessage());
+                public void onFailure(Call<AvatarResponse> call, Throwable t) {
+                    Log.d("profileeee", "onResponse: "+t.getMessage());
                 }
             });
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -199,17 +169,18 @@ public class ProfileActivity extends AppCompatActivity {
 
     private File createImageFile(Bitmap bitmap) throws IOException {
         File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File imageFile = new File(picturesDirectory, "my_image.png");
+        File imageFile = new File(picturesDirectory, "my_image.jpeg");
 
         // Ghi dữ liệu của bitmap vào tệp
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
         }
 
         return imageFile;
     }
 
     int PICK_IMAGE = 100;
+    int CROP_IMAGE = 101;
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE);
@@ -218,18 +189,25 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("adasdasd " + data);
-//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null){
-//            Uri selectedImageUri = data.getData();
-////            handleImageUpload(selectedImageUri);
-//        }
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null){
+            Uri selectedImageUri = data.getData();
+            startUCrop(selectedImageUri);
+        }else if(requestCode == CROP_IMAGE && resultCode == RESULT_OK && data != null){
+            Uri croppedImageUri = UCrop.getOutput(data);
+            handleImageUpload(croppedImageUri);
+
+        }
     }
 
-    private void saveBitmapToFile(Bitmap bitmap) throws IOException {
-        // Tạo một tệp mới trong thư mục ảnh của ứng dụng
+    private void startUCrop(Uri selectedImageUri) {
+        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), "cropped_image.jpg"));
+        float x = (float) (avatar.getWidth());
+        float y = (float)(avatar.getHeight());
 
-
-        // Cập nhật thư viện ảnh
-//        MediaStore.Images.Media.insertImage(getContentResolver(), imageFile.getAbsolutePath(), imageFile.getName(), imageFile.getName());
+        UCrop uCrop = UCrop.of(selectedImageUri, destinationUri)
+                .withAspectRatio(x, y);
+        Log.d("djaskda", "X : " +x + " Y: "+y);
+//        cropImageLauncher.launch(uCrop.getIntent(this));
+        startActivityForResult(uCrop.getIntent(this),CROP_IMAGE);
     }
 }

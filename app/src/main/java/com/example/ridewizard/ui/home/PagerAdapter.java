@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.ridewizard.ui.home.history.HistoryFragment;
+import com.example.ridewizard.ui.home.listener.ContactActivity;
+import com.example.ridewizard.ui.home.map.MapManagerFragment;
 import com.example.ridewizard.ui.home.map.MapsFragment;
 import com.example.ridewizard.ui.home.menu.MenuFragment;
 import com.example.ridewizard.ui.home.order.OrderFragment;
@@ -13,14 +15,16 @@ import com.example.ridewizard.ui.home.order.OrderFragment;
 public class PagerAdapter extends FragmentStateAdapter {
     MenuFragment menuFragment;
     OrderFragment orderFragment;
-    MapsFragment mapsFragment;
+    MapManagerFragment mapManagerFragment;
     HistoryFragment historyFragment;
-    public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    FragmentActivity fragmentActivity;
+    public PagerAdapter(@NonNull FragmentActivity fragmentActivity,ContactActivity contactActivity) {
         super(fragmentActivity);
+        this.fragmentActivity = fragmentActivity;
         historyFragment = new HistoryFragment();
         orderFragment = new OrderFragment();
-        mapsFragment = new MapsFragment();
-        menuFragment = new MenuFragment();
+        mapManagerFragment = new MapManagerFragment();
+        menuFragment = new MenuFragment(contactActivity);
     }
 
     @NonNull
@@ -28,7 +32,7 @@ public class PagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return mapsFragment;
+                return mapManagerFragment;
             case 1:
                 return orderFragment;
             case 2:

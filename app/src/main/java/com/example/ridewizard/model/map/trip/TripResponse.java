@@ -1,10 +1,10 @@
-package com.example.ridewizard.model.uploadavatar;
+package com.example.ridewizard.model.map.trip;
 
-public class UploadAvatar {
+public class TripResponse{
 	private Data data;
 	private boolean success;
 	private String message;
-	private Error error;
+	private String error;
 	private int status;
 
 	public Data getData(){
@@ -19,7 +19,7 @@ public class UploadAvatar {
 		return message;
 	}
 
-	public Error getError(){
+	public String getError(){
 		return error;
 	}
 
