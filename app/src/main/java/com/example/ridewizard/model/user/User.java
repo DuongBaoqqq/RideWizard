@@ -3,16 +3,15 @@ package com.example.ridewizard.model.user;
 import java.util.List;
 
 public class User{
-	private Object googleId;
-	private String lastName;
+	private Object lastName;
 	private Object address;
 	private int emailVerified;
 	private List<RoleItem> role;
-	private Object facebookId;
 	private String fullName;
-	private Object avatar;
+	private String avatar;
+	private String driverStatus;
 	private String phNo;
-	private Object firstName;
+	private String firstName;
 	private String createdAt;
 	private int phoneVerified;
 	private boolean passwordDefault;
@@ -22,11 +21,7 @@ public class User{
 	private String status;
 	private String updatedAt;
 
-	public Object getGoogleId(){
-		return googleId;
-	}
-
-	public String getLastName(){
+	public Object getLastName(){
 		return lastName;
 	}
 
@@ -42,23 +37,23 @@ public class User{
 		return role;
 	}
 
-	public Object getFacebookId(){
-		return facebookId;
-	}
-
 	public String getFullName(){
 		return fullName;
 	}
 
-	public Object getAvatar(){
+	public String getAvatar(){
 		return avatar;
+	}
+
+	public String getDriverStatus(){
+		return driverStatus;
 	}
 
 	public String getPhNo(){
 		return phNo;
 	}
 
-	public Object getFirstName(){
+	public String getFirstName(){
 		return firstName;
 	}
 

@@ -1,10 +1,10 @@
-package com.example.ridewizard.model.user;
+package com.example.ridewizard.model.verify;
 
-public class UserResponse{
+public class Verify {
 	private Data data;
 	private boolean success;
 	private String message;
-	private String error;
+	private Error error;
 	private int status;
 
 	public Data getData(){
@@ -19,7 +19,7 @@ public class UserResponse{
 		return message;
 	}
 
-	public String getError(){
+	public Error getError(){
 		return error;
 	}
 

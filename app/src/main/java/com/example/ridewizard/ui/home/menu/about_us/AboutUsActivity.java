@@ -1,6 +1,10 @@
 package com.example.ridewizard.ui.home.menu.about_us;
 
 import android.annotation.SuppressLint;
+
+import android.content.Intent;
+import android.net.Uri;
+
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -31,4 +35,5 @@ public class AboutUsActivity extends AppCompatActivity{
         });
 
     }
+
 }
