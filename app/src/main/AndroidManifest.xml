@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="CoarseFineLocation">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" -->
+    <!-- android:maxSdkVersion="32" /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -21,28 +23,25 @@
         android:theme="@style/Theme.RideWizard"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.menu.setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.welcome.login.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.menu.profile.ProfileActivity"
             android:exported="false" />
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
 
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBivdveQCoYAhOEMd0xCUlKsPKSaq6nSA8" />
+
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
-        <activity android:name=".ui.driver.DriverActivity"
-            android:exported="false"/>
-
+        <activity
+            android:name=".ui.driver.DriverActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.welcome.login.VerifyCodeActivity"
             android:exported="false" />
@@ -51,19 +50,19 @@
             android:exported="false" />
         <activity
             android:name=".ui.home.menu.setting.change_password.ChangePasswordActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.home.menu.about_us.AboutUsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.home.menu.setting.contact_us.ContactUsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.home.menu.setting.term_of_use.TermOfUseActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.home.menu.setting.privacy.PrivacyActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.driver.more.profile.profileScreenDetail.UploadImageActivity"
             android:exported="false"/>
