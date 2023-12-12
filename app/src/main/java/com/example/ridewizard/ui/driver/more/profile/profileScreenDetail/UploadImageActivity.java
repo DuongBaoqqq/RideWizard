@@ -176,10 +176,10 @@ public class UploadImageActivity extends AppCompatActivity {
     private void uploadImageToServer(Bitmap bitmap) {
         // Chuyển đổi Bitmap thành MultipartBody.Part
         MultipartBody.Part imagePart = convertBitmapToMultipart(bitmap);
-
+        Log.d("imageeeeeeee",imagePart.toString());
         // Lấy loại ảnh (type) từ indexImage (có thể cần thêm logic để xác định loại ảnh)
         int type = getTypeFromIndex(indexImage);
-
+        Log.d("typeppppppp",String.valueOf(type));
         // Gọi API để đẩy ảnh lên server
         UserDAO.getInstance().uploadImage(type, imagePart).enqueue(new Callback<ResponseBody>() {
             @Override

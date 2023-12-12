@@ -15,6 +15,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -35,9 +36,13 @@ public interface UserService {
     Call<ChangePasswordResponse> changePassword(@Header("Authorization") String token,
                                                 @Field("old_password") String oldPassword,
                                                 @Field("new_password") String newPassword);
+    @Multipart
     @PUT("/api/v1/drivers/identification/upload")
-    Call<ResponseBody> uploadImages(@Query("type") int type,
-                                    @Part MultipartBody.Part image);
+    Call<ResponseBody> uploadImages(
+            @Query("type") int type,
+            @Part MultipartBody.Part image
+    );
+
 
     @GET("api/v1/drivers/identification/{id}")
     Call<ProfileDriver> getProfileDriverById(@Header("Authorization") String token,
