@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
+import com.example.ridewizard.model.uploadImage.LoadImageResponse;
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
 
 import android.content.SharedPreferences;
@@ -181,15 +182,26 @@ public class UploadImageActivity extends AppCompatActivity {
         int type = getTypeFromIndex(indexImage);
         Log.d("typeppppppp",String.valueOf(type));
         // Gọi API để đẩy ảnh lên server
-        UserDAO.getInstance().uploadImage(type, imagePart).enqueue(new Callback<ResponseBody>() {
+        UserDAO.getInstance().uploadImage(type, imagePart).enqueue(new Callback<LoadImageResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                // Xử lý kết quả từ server (kiểm tra thành công, lỗi, ...)
+            public void onResponse(Call<LoadImageResponse> call, Response<LoadImageResponse> response) {
+                if(response.isSuccessful()){
+                    if (response.body().getStatus()==200){
+                        Log.d("MessageLoadImage", response.body().getMessage());
+                    }
+                    else {
+                        Log.d("ERRORRRRRRRRRRRRRR", "LoiLoiLoiLOi: ");
+                    }
+                }
+                else {
+                    Log.d("ERRORRRRRRRRRRRRRR", "No respond: ");
+                    Log.d("ERRRRORRORORORORORO", String.valueOf(response));
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Xử lý khi có lỗi xảy ra trong quá trình gọi API
+            public void onFailure(Call<LoadImageResponse> call, Throwable t) {
+                Log.d("onFailure", "onFailure");
             }
         });
     }

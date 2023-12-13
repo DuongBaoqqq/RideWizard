@@ -3,6 +3,7 @@ package com.example.ridewizard.API.service;
 import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 import com.example.ridewizard.model.profile.ProfileResponse;
 
+import com.example.ridewizard.model.uploadImage.LoadImageResponse;
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
 
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
@@ -66,7 +67,7 @@ public interface UserService {
                                                 @Field("new_password") String newPassword);
     @Multipart
     @PUT("/api/v1/drivers/identification/upload")
-    Call<ResponseBody> uploadImages(
+    Call<LoadImageResponse> uploadImages(
             @Query("type") int type,
             @Part MultipartBody.Part image
     );

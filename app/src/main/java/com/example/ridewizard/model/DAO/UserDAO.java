@@ -3,8 +3,8 @@ package com.example.ridewizard.model.DAO;
 import com.example.ridewizard.API.APIClient;
 import com.example.ridewizard.API.service.UserService;
 import com.example.ridewizard.model.change_password.ChangePasswordResponse;
-import com.example.ridewizard.model.profile.ProfileResponse;
 
+import com.example.ridewizard.model.uploadImage.LoadImageResponse;
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
 import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 
@@ -12,8 +12,6 @@ import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
 
 import okhttp3.MultipartBody;
-
-import okhttp3.ResponseBody;
 
 import retrofit2.Call;
 
@@ -55,7 +53,7 @@ public class UserDAO {
         return service.changePassword(token,oldPassword, newPassword);
 
     }
-    public Call<ResponseBody> uploadImage(int type, MultipartBody.Part image)
+    public Call<LoadImageResponse> uploadImage(int type, MultipartBody.Part image)
     {
         return service.uploadImages(type,image);
     }
