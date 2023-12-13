@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+//import com.chaos.view.PinView;
 import com.chaos.view.PinView;
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;

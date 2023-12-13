@@ -16,9 +16,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
 import com.example.ridewizard.model.profile.ProfileResponse;
-import com.example.ridewizard.model.profile.User;
+import com.example.ridewizard.model.user.User;
+import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.ui.driver.more.profile.ProfileDriverFragment;
-import com.example.ridewizard.ui.home.menu.setting.SettingFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,23 +47,23 @@ public class MoreFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId",0);
         String token = "Bearer " + sharedPreferences.getString("accessToken","");
-        UserDAO.getInstance().getProfileById(token,userId).enqueue(new Callback<ProfileResponse>() {
+        UserDAO.getInstance().getProfileById(token, userId).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
                     User data = response.body().getData().getUser();
                     name.setText(data.getFullName());
-                }
-                else {
+                } else {
                     Log.d("access token", "onResponse: " + response.body().getStatus());
                 }
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.d("access token", "onFailure: " + t.getMessage());
             }
         });
+
         return view;
     }
 }

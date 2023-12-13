@@ -26,13 +26,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-<<<<<<< HEAD
-import retrofit2.http.Multipart;
-=======
-
 import retrofit2.http.Multipart;
 
->>>>>>> d4914ae4ab8947724835f5301dc79f5b986b324c
 import retrofit2.http.PATCH;
 
 import retrofit2.http.POST;
@@ -75,8 +70,6 @@ public interface UserService {
             @Query("type") int type,
             @Part MultipartBody.Part image
     );
-
-
 
     @GET("api/v1/drivers/identification/{id}")
     Call<ProfileDriver> getProfileDriverById(@Header("Authorization") String token,

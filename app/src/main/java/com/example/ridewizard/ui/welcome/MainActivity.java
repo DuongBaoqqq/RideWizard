@@ -36,22 +36,23 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, DriverActivity.class);
             startActivity(intent);
         } else {
-        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("accessToken","");
-        if(token.equals("")){
-            fragmentManager = getSupportFragmentManager();
-            slashFragment = new SlashFragment();
-            onboardingFragment = new OnboardingFragment();
-            fragmentManager.beginTransaction().replace(R.id.frag,slashFragment).commit();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.right_to_left,R.anim.end).replace(R.id.frag,onboardingFragment).commit();
-                }
-            },1500);
-        }else {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+            SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("accessToken", "");
+            if (token.equals("")) {
+                fragmentManager = getSupportFragmentManager();
+                slashFragment = new SlashFragment();
+                onboardingFragment = new OnboardingFragment();
+                fragmentManager.beginTransaction().replace(R.id.frag, slashFragment).commit();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragmentManager.beginTransaction().setCustomAnimations(R.anim.right_to_left, R.anim.end).replace(R.id.frag, onboardingFragment).commit();
+                    }
+                }, 1500);
+            } else {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }
