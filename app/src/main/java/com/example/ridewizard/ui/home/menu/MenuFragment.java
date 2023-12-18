@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,14 +20,10 @@ import android.widget.TextView;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.ui.driver.DriverActivity;
-import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
 import com.example.ridewizard.ui.home.menu.setting.SettingActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
-
-import com.example.ridewizard.ui.home.menu.setting.SettingFragment;
-
 
 
 public class MenuFragment extends Fragment {
@@ -48,6 +43,8 @@ public class MenuFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         userName.setText(sharedPreferences.getString("userName","User").toString());
+        String token = "Bearer " + sharedPreferences.getString("accessToken","");
+        int userId = sharedPreferences.getInt("userId",0);
         profile = view.findViewById(R.id.profile);
         btnLogout = view.findViewById(R.id.log_out);
         btnLogout.setOnClickListener(new View.OnClickListener() {

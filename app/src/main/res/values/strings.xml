@@ -62,4 +62,5 @@
     <string name="vehicle_certificate">"Vehicle certificate verification "</string>
     <string name="vehicle_image">Vehicle image verification</string>
     <string name="send">Send</string>
+    <string name="map_driver">Map Driver</string>
 </resources>

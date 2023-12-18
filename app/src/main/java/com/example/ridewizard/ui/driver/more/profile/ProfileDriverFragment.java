@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
+import com.example.ridewizard.model.uploadImage.Driver;
 import com.example.ridewizard.model.user.User;
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.ui.driver.more.profile.profileScreenDetail.UploadImageActivity;

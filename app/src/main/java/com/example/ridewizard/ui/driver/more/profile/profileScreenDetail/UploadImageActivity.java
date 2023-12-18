@@ -182,7 +182,10 @@ public class UploadImageActivity extends AppCompatActivity {
         int type = getTypeFromIndex(indexImage);
         Log.d("typeppppppp",String.valueOf(type));
         // Gọi API để đẩy ảnh lên server
-        UserDAO.getInstance().uploadImage(type, imagePart).enqueue(new Callback<LoadImageResponse>() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId",0);
+        String token = "Bearer " + sharedPreferences.getString("accessToken","");
+        UserDAO.getInstance().uploadImage(token,type, imagePart).enqueue(new Callback<LoadImageResponse>() {
             @Override
             public void onResponse(Call<LoadImageResponse> call, Response<LoadImageResponse> response) {
                 if(response.isSuccessful()){

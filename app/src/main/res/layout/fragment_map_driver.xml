@@ -1,8 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.driver.map.MapFragment" />
+    android:paddingBottom="60dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingEnd="10dp"
+        android:background="@drawable/bg_header"
+        android:paddingBottom="10dp"
+        android:backgroundTint="#EAEEF1"
+        tools:ignore="RtlSymmetry">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/map_driver"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:backgroundTint="#86BC18"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.driver.map.MapFragment" />
+        <ImageView
+            android:id="@+id/zoom_out"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bt_add"
+            android:layout_marginBottom="150dp"
+            android:layout_gravity="end|bottom"/>
+        <ImageView
+            android:id="@+id/zoom_in"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bt_subtraction"
+            android:layout_marginBottom="100dp"
+            android:layout_gravity="end|bottom"/>
+        <ImageView
+            android:id="@+id/local"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bt_dinh_vi"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="end|bottom"/>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -53,9 +53,9 @@ public class UserDAO {
         return service.changePassword(token,oldPassword, newPassword);
 
     }
-    public Call<LoadImageResponse> uploadImage(int type, MultipartBody.Part image)
+    public Call<LoadImageResponse> uploadImage(String token, int type, MultipartBody.Part image)
     {
-        return service.uploadImages(type,image);
+        return service.uploadImages(token,type,image);
     }
     public Call<ProfileDriver> getProfileDriverId(String token,int id){
         return service.getProfileDriverById(token,id);

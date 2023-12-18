@@ -10,6 +10,14 @@ public class Driver {
     public int getId() {
         return id;
     }
+    private int userID;
+    public int getUserId() {
+        return userID;
+    }
+    public int getIdByUserID(int userId){
+        userId = this.userID;
+        return userId+this.id;
+    }
     private String phNo;
     public String getPhNo(){
         return email;
@@ -37,10 +45,6 @@ public class Driver {
     public String getEmail(){
         return email;
     }
-    private int userID;
-    public int getUserId() {
-        return userID;
-    }
     private String createdAt;
     public String getCreatedAt() {
         return createdAt;
@@ -48,18 +52,6 @@ public class Driver {
     private String updatedAt;
     public String getUpdatedAt(){
         return updatedAt;
-    }
-
-    public int getIdByUserId(int userID){
-        return id+userID;
-    }
-    public static Driver findDataByUserId(List<Driver> data,int userID){
-        for (Driver driver:data){
-            if(driver.getUserId() == userID){
-                return driver;
-            }
-        }
-        return null;
     }
     @SerializedName("type_1")
     private String type1;
