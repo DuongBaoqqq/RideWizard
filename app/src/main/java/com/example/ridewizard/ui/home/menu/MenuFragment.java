@@ -83,7 +83,9 @@ public class MenuFragment extends Fragment {
         about_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLink("https://www.ridewizard.pro/about");
+//                openLink("https://www.ridewizard.pro/about");
+                Intent intent = new Intent(getContext(), AboutUsActivity.class);
+                startActivity(intent);
             }
         });
         setting.setOnClickListener(new View.OnClickListener() {
