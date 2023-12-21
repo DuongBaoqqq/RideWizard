@@ -20,9 +20,11 @@ import android.widget.TextView;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.ui.driver.DriverActivity;
+import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
 import com.example.ridewizard.ui.home.menu.setting.SettingActivity;
+import com.example.ridewizard.ui.home.menu.setting.contact_us.ContactUsActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
 
 
@@ -71,7 +73,9 @@ public class MenuFragment extends Fragment {
         about_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLink("https://www.ridewizard.pro/about");
+//                openLink("https://www.ridewizard.pro/about");
+                Intent intent = new Intent(getContext(), AboutUsActivity.class);
+                startActivity(intent);
             }
         });
         setting.setOnClickListener(new View.OnClickListener() {
