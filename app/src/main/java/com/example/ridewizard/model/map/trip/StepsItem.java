@@ -2,11 +2,11 @@ package com.example.ridewizard.model.map.trip;
 
 public class StepsItem{
 	private Duration duration;
-	private StartLocation startLocation;
+	private StartLocation start_location;
 	private Distance distance;
-	private String travelMode;
-	private String htmlInstructions;
-	private EndLocation endLocation;
+	private String travel_mode;
+	private String html_instructions;
+	private EndLocation end_location;
 	private String maneuver;
 	private Polyline polyline;
 
@@ -14,24 +14,9 @@ public class StepsItem{
 		return duration;
 	}
 
-	public StartLocation getStartLocation(){
-		return startLocation;
-	}
 
 	public Distance getDistance(){
 		return distance;
-	}
-
-	public String getTravelMode(){
-		return travelMode;
-	}
-
-	public String getHtmlInstructions(){
-		return htmlInstructions;
-	}
-
-	public EndLocation getEndLocation(){
-		return endLocation;
 	}
 
 	public String getManeuver(){
@@ -40,5 +25,21 @@ public class StepsItem{
 
 	public Polyline getPolyline(){
 		return polyline;
+	}
+
+	public StartLocation getStart_location() {
+		return start_location;
+	}
+
+	public String getTravel_mode() {
+		return travel_mode;
+	}
+
+	public String getHtml_instructions() {
+		return html_instructions;
+	}
+
+	public EndLocation getEnd_location() {
+		return end_location;
 	}
 }

@@ -4,48 +4,49 @@ import java.util.List;
 
 public class LegsItem{
 	private Duration duration;
-	private StartLocation startLocation;
+	private StartLocation start_location;
 	private Distance distance;
-	private String startAddress;
-	private EndLocation endLocation;
-	private String endAddress;
-	private List<Object> viaWaypoint;
+	private String start_address;
+	private EndLocation end_location;
+	private String end_address;
+	private List<Object> via_waypoint;
 	private List<StepsItem> steps;
-	private List<Object> trafficSpeedEntry;
+	private List<Object> traffic_speed_entry;
 
 	public Duration getDuration(){
 		return duration;
 	}
 
-	public StartLocation getStartLocation(){
-		return startLocation;
-	}
 
 	public Distance getDistance(){
 		return distance;
-	}
-
-	public String getStartAddress(){
-		return startAddress;
-	}
-
-	public EndLocation getEndLocation(){
-		return endLocation;
-	}
-
-	public String getEndAddress(){
-		return endAddress;
-	}
-
-	public List<Object> getViaWaypoint(){
-		return viaWaypoint;
 	}
 
 	public List<StepsItem> getSteps(){
 		return steps;
 	}
 
-	public List<Object> getTrafficSpeedEntry(){
-		return trafficSpeedEntry;
+	public StartLocation getStart_location() {
+		return start_location;
+	}
+
+	public String getStart_address() {
+		return start_address;
+	}
+
+	public EndLocation getEnd_location() {
+		return end_location;
+	}
+
+	public String getEnd_address() {
+		return end_address;
+	}
+
+	public List<Object> getVia_waypoint() {
+		return via_waypoint;
+	}
+
+	public List<Object> getTraffic_speed_entry() {
+		return traffic_speed_entry;
 	}
 }

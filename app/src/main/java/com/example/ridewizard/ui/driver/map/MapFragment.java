@@ -33,47 +33,47 @@ public class MapFragment extends Fragment {
     private LocationManager locationManager;
     private LocationListener locationListener;
     private FusedLocationProviderClient fusedLocationClient;
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+//    private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-
-        @Override
-        public void onMapReady(@NonNull GoogleMap googleMap) {
-//            LatLng sydney = new LatLng(-34, 151);
-//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, YOUR_REQUEST_CODE);
-            }
-
-            fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
-                if (location != null) {
-                    LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("Your Location"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-                } else {
-                    Log.d("MapsActivity", "Location is null");
-                }
-            });
-        }
-    };
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.getContext());
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
-        }
-    }
+//
+//        @Override
+//        public void onMapReady(@NonNull GoogleMap googleMap) {
+////            LatLng sydney = new LatLng(-34, 151);
+////            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+////            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, YOUR_REQUEST_CODE);
+//            }
+//
+//            fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
+//                if (location != null) {
+//                    LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                    googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("Your Location"));
+//                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+//                } else {
+//                    Log.d("MapsActivity", "Location is null");
+//                }
+//            });
+//        }
+//    };
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater,
+//                             @Nullable ViewGroup container,
+//                             @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(view.getContext());
+//        return view;
+//    }
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        SupportMapFragment mapFragment =
+//                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+//        if (mapFragment != null) {
+//            mapFragment.getMapAsync(callback);
+//        }
+//    }
 }

@@ -21,8 +21,8 @@ public class MapDAO {
         return instance;
     }
 
-    public Call<TripResponse> getRoute(String origin, String destination,String key){
-        return service.getRoute(origin,destination,key);
+    public Call<TripResponse> getRoute(String token,String origin, String destination,String key){
+        return service.getRoute(token,origin,destination,key);
     }
 
 }

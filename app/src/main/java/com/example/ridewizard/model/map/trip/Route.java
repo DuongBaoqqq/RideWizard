@@ -8,8 +8,8 @@ public class Route{
 	private List<LegsItem> legs;
 	private List<Object> warnings;
 	private Bounds bounds;
-	private OverviewPolyline overviewPolyline;
-	private List<Object> waypointOrder;
+	private OverviewPolyline overview_polyline;
+	private List<Object> waypoint_order;
 
 	public String getSummary(){
 		return summary;
@@ -31,11 +31,11 @@ public class Route{
 		return bounds;
 	}
 
-	public OverviewPolyline getOverviewPolyline(){
-		return overviewPolyline;
+	public OverviewPolyline getOverview_polyline() {
+		return overview_polyline;
 	}
 
-	public List<Object> getWaypointOrder(){
-		return waypointOrder;
+	public List<Object> getWaypoint_order() {
+		return waypoint_order;
 	}
 }

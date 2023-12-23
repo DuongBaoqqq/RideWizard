@@ -6,6 +6,7 @@ import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
 
 
+import com.example.ridewizard.model.uploadImage.uploadImage.ImageResponse;
 import com.example.ridewizard.model.uploadavatar.AvatarResponse;
 
 import com.example.ridewizard.model.user.UserResponse;
@@ -63,9 +64,10 @@ public interface UserService {
     Call<ChangePasswordResponse> changePassword(@Header("Authorization") String token,
                                                 @Field("old_password") String oldPassword,
                                                 @Field("new_password") String newPassword);
+    @Multipart
     @PUT("/api/v1/drivers/identification/upload")
-    Call<ResponseBody> uploadImages(@Query("type") int type,
-                                    @Part MultipartBody.Part image);
+    Call<ImageResponse> uploadImages(@Header("Authorization") String token, @Query("type") int type,
+                                     @Part MultipartBody.Part file);
 
 
     @GET("api/v1/drivers/identification/{id}")

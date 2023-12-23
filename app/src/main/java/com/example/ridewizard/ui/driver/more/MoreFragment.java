@@ -68,7 +68,7 @@ public class MoreFragment extends Fragment {
                     name.setText(data.getFullName());
                 }
                 else {
-                    Log.d("access token", "onResponse: " + response.body().getStatus());
+//                    Log.d("access token", "onResponse: " + response.body().getStatus());
                 }
             }
 

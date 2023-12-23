@@ -6,20 +6,32 @@ import android.content.Intent;
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
+import com.example.ridewizard.model.uploadImage.uploadImage.ImageResponse;
+import com.example.ridewizard.model.uploadavatar.AvatarResponse;
+import com.example.ridewizard.util.LocalDataUser;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.provider.MediaStore;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +45,7 @@ import retrofit2.Response;
 
 public class UploadImageActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     LinearLayout back;
     LinearLayout image1,image2,image3,image4;
     ImageView imageView1,imageView2,imageView3,imageView4;
@@ -151,11 +164,12 @@ public class UploadImageActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap originalBitmap = (Bitmap) extras.get("data");
-
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            uploadImageToServer(imageBitmap);
             // Điều chỉnh kích thước ảnh
-            Bitmap resizedBitmap = resizeBitmap(originalBitmap, imageView1.getWidth(), imageView1.getHeight());
-            uploadImageToServer(originalBitmap);
+            Bitmap resizedBitmap = resizeBitmap(imageBitmap, imageView1.getWidth(), imageView1.getHeight());
+
+//            uploadImageToServer(imageBitmap);
             // Hiển thị ảnh trong ImageView tương ứng
             switch (indexImage){
                 case 1:
@@ -173,39 +187,79 @@ public class UploadImageActivity extends AppCompatActivity {
             }
         }
     }
-    private void uploadImageToServer(Bitmap bitmap) {
-        // Chuyển đổi Bitmap thành MultipartBody.Part
-        MultipartBody.Part imagePart = convertBitmapToMultipart(bitmap);
+        private void uploadImageToServer(Bitmap bitmap)  {
+        try {
+            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File imageFile = File.createTempFile("avatar_image", ".jpeg", storageDir);
+            OutputStream os = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+//            File imageFile = createImageFile(bitmap);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageFile);
+            int type = getTypeFromIndex(indexImage);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file", "avatar_image.jpeg", requestFile);
+            String token = "Bearer " + LocalDataUser.getInstance(getApplicationContext()).getToken();
+            UserDAO.getInstance().uploadImage(token,type, part).enqueue(new Callback<ImageResponse>() {
+                @Override
+                public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                    if(response.isSuccessful()){
+                        Log.d("profileeee", "onResponse: "+response.body().getMessage());
+                    }else {
+                        Log.d("profileeee", "onResponse: "+response);
+                    }
+                }
 
-        // Lấy loại ảnh (type) từ indexImage (có thể cần thêm logic để xác định loại ảnh)
-        int type = getTypeFromIndex(indexImage);
+                @Override
+                public void onFailure(Call<ImageResponse> call, Throwable t) {
+                    Log.d("profileeee", "onResponse: "+t.getMessage());
 
-        // Gọi API để đẩy ảnh lên server
-        UserDAO.getInstance().uploadImage(type, imagePart).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                // Xử lý kết quả từ server (kiểm tra thành công, lỗi, ...)
-            }
+                }
+            });
+        }catch (IOException e){
+            Log.d("profileeee", "uploadImageToServer: " + e.getMessage());
+        }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Xử lý khi có lỗi xảy ra trong quá trình gọi API
-            }
-        });
     }
     // Hàm chuyển đổi Bitmap thành MultipartBody.Part
     private MultipartBody.Part convertBitmapToMultipart(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), imageBytes);
-        return MultipartBody.Part.createFormData("image", "image.png", requestBody);
+        return MultipartBody.Part.createFormData("image", "image.jpeg", requestBody);
     }
+    private File createImageFile(Bitmap bitmap) throws IOException {
+        File picturesDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File imageFile = new File(picturesDirectory, "my_image.jpeg");
 
+        // Ghi dữ liệu của bitmap vào tệp
+        try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        }
+
+        return imageFile;
+    }
     // Hàm để xác định loại ảnh dựa trên indexImage (cần phải thay đổi phù hợp)
     private int getTypeFromIndex(int indexImage) {
         return Integer.parseInt(getDataNeedImage(index).get(indexImage-1)[0]);
+    }
+    private Bitmap uriToBitmap(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Hàm điều chỉnh kích thước ảnh
@@ -278,7 +332,8 @@ public class UploadImageActivity extends AppCompatActivity {
                 result.add(new String[]{"15","Medical health check (front)"});
                 result.add(new String[]{"16","Medical health check (back)"});
                 result.add(new String[]{"17","Medical health check (left)"});
-                result.add(new String[]{"18","Medical health check (right)"});                return result;
+                result.add(new String[]{"18","Medical health check (right)"});
+                return result;
         }
         return null;
     }

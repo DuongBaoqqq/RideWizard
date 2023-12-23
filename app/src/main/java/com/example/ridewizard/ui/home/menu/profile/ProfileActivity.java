@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -123,25 +124,17 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-    result -> {
-        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-            Uri selectedImageUri = result.getData().getData();
-            if(selectedImageUri != null){
-                handleImageUpload(selectedImageUri);
-
-            }
-        }
-        else {
-            Log.d("imageeeee", "result: "+ result);
-        }
-    });
 
     private void handleImageUpload(Uri selectedImageUri) {
         try {
             Bitmap bitmap = uriToBitmap(selectedImageUri);
 
-            File imageFile = createImageFile(bitmap);
+            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File imageFile = File.createTempFile("avatar", ".jpeg", storageDir);
+            OutputStream os = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
             RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageFile);
 
             MultipartBody.Part part = MultipartBody.Part.createFormData("file", "avatar.jpeg", requestFile);

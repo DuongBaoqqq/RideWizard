@@ -6,6 +6,7 @@ import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 
 import com.example.ridewizard.model.uploadImage.ProfileDriver;
 
+import com.example.ridewizard.model.uploadImage.uploadImage.ImageResponse;
 import com.example.ridewizard.model.uploadavatar.AvatarResponse;
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
@@ -58,9 +59,9 @@ public class UserDAO {
         return service.changePassword(token,oldPassword, newPassword);
 
     }
-    public Call<ResponseBody> uploadImage(int type, MultipartBody.Part image)
+    public Call<ImageResponse> uploadImage(String token, int type, MultipartBody.Part image)
     {
-        return service.uploadImages(type,image);
+        return service.uploadImages(token,type,image);
     }
     public Call<ProfileDriver> getProfileDriverId(String token,int id){
         return service.getProfileDriverById(token,id);

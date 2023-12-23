@@ -1,14 +1,14 @@
 package com.example.ridewizard.model.map.trip;
 
 public class EndLocation{
-	private Object lng;
-	private Object lat;
+	private Double lng;
+	private Double lat;
 
-	public Object getLng(){
+	public Double getLng(){
 		return lng;
 	}
 
-	public Object getLat(){
+	public Double getLat(){
 		return lat;
 	}
 }

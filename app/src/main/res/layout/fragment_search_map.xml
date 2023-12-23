@@ -5,18 +5,108 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.map.SearchMapFragment">
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
+    <FrameLayout
+        android:id="@+id/container_bar"
+        android:paddingVertical="12dp"
+        android:background="#0472D8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/back"
+            android:orientation="horizontal"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="4dp"
+                android:layout_gravity="center"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/back_icon"
+                app:tint="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick a location"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_below="@id/container_bar"
+        android:orientation="horizontal"
+        android:id="@+id/container_search"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="6dp"
+        android:background="@drawable/bg_search_map_edittext"
+        android:paddingVertical="16dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/map_location"/>
+        <EditText
+            android:id="@+id/search"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:hint="Where do you go"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/not_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:queryHint="Search here..."
-        android:iconifiedByDefault="false"/>
-
+        android:src="@drawable/not_found"/>
+    <FrameLayout
+        android:id="@+id/text_result"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/container_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Result for "/>
+            <TextView
+                android:id="@+id/search_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#0472D8"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/count_result"
+            android:layout_gravity="right"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0472D8"/>
+    </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="12dp"
         android:id="@+id/list_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search"
+        android:layout_below="@id/text_result"
         android:layout_marginHorizontal="16dp"
         />
 
