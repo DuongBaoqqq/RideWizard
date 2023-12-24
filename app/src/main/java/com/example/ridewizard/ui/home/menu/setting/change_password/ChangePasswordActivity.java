@@ -21,6 +21,11 @@ import com.example.ridewizard.model.change_password.ChangePasswordResponse;
 import com.example.ridewizard.model.profile.User;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +40,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     ImageButton eye1;
     ImageButton eye2;
     ImageButton eye3;
+    String token;
     static boolean isActive1 = false;
 
     @SuppressLint("MissingInflatedId")
@@ -83,22 +89,36 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String strOldPassWord = old_password.getText().toString();
         String strNewPassWord = new_password.getText().toString();
         SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        String token = "Bearer " + sharedPreferences.getString("accessToken","");
+        token = "Bearer " + sharedPreferences.getString("accessToken","");
         UserDAO.getInstance().changePassword(token,strOldPassWord,strNewPassWord).enqueue(new Callback<ChangePasswordResponse>() {
             @Override
             public void onResponse(Call<ChangePasswordResponse> call, Response<ChangePasswordResponse> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus()==401){
-                        String message = response.body().getMessage();
-                        showError(message);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (response.body().getStatus() == 200) {
+                            Log.d("messageChangePassword", "Success");
+                            Logout();
+                        }
                     }
                     else {
-                        Logout();
+                        showError("Response.body = null1");
                     }
-
-                }
-                else {
-                    Log.d("access token", "onResponse: " + response.body().getStatus());
+                } else {
+                    try {
+                        String errorBodyString = response.errorBody().string();
+                        JSONObject errorJson = new JSONObject(errorBodyString);
+                        int status = errorJson.getInt("status");
+                        String errorMessage = errorJson.getString("message");
+                        if (status == 400){
+                            showError("Your password must contain at least one uppercase letter, one special character (e.g., !, @, #, $), and one number.");
+                        } else if (status == 401) {
+                            showError(errorMessage);
+                        } else{
+                            Log.d("access token", String.valueOf(status));
+                        }
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

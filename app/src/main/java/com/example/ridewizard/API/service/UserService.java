@@ -54,11 +54,12 @@ public interface UserService {
     Call<Verify> requestVerifyOTP(@Header("Authorization") String token);
     @GET("/api/v1/users/{id}")
     Call<UserResponse> getProfileById(@Header("Authorization") String token,@Path("id") int userId);
-    @PATCH("/api/v1/users/change-password")
-
-    Call<ChangePasswordResponse> changePassword(@Header("Authorization") String token,
-                                                @Field("old_password") String oldPassword,
-                                                @Field("new_password") String newPassword);
+    @FormUrlEncoded
+    @PUT("/api/v1/users/change-password")
+    Call<ChangePasswordResponse> changePassword(
+            @Header("Authorization") String token,
+            @Field("currentPassword") String oldPassword,
+            @Field("newPassword") String newPassword);
     @Multipart
     @PUT("/api/v1/drivers/identification/upload")
     Call<LoadImageResponse> uploadImages(

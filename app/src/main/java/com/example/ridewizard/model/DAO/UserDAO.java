@@ -51,7 +51,6 @@ public class UserDAO {
     }
     public Call<ChangePasswordResponse> changePassword(String token,String oldPassword, String newPassword) {
         return service.changePassword(token,oldPassword, newPassword);
-
     }
     public Call<LoadImageResponse> uploadImage(String token, int type, MultipartBody.Part image)
     {
