@@ -10,6 +10,7 @@ import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
+import com.google.gson.JsonObject;
 
 import okhttp3.MultipartBody;
 
@@ -56,7 +57,10 @@ public class UserDAO {
     {
         return service.uploadImages(token,type,image);
     }
-    public Call<ProfileDriver> getProfileDriverId(String token,int id){
+    public Call<ProfileDriver> getProfileDriverById(String token,int id){
         return service.getProfileDriverById(token,id);
+    }
+    public Call<JsonObject> checkDriver(String token){
+        return service.checkDriver(token);
     }
 }

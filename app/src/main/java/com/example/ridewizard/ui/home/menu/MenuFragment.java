@@ -17,15 +17,21 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ridewizard.R;
+import com.example.ridewizard.model.DAO.UserDAO;
 import com.example.ridewizard.ui.driver.DriverActivity;
 import com.example.ridewizard.ui.home.menu.about_us.AboutUsActivity;
 import com.example.ridewizard.ui.home.menu.profile.ProfileActivity;
 
 import com.example.ridewizard.ui.home.menu.setting.SettingActivity;
-import com.example.ridewizard.ui.home.menu.setting.contact_us.ContactUsActivity;
 import com.example.ridewizard.ui.welcome.LoginRegisterActivity;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MenuFragment extends Fragment {
@@ -93,9 +99,36 @@ public class MenuFragment extends Fragment {
         work_as_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DriverActivity.class);
-                Log.d("DriverActivity","DriverActivity1245345785555");
-                startActivity(intent);
+                UserDAO.getInstance().checkDriver(token).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(response.isSuccessful()){
+                            if (response.body()!=null){
+                                if (response.body().getAsJsonPrimitive("status").getAsInt() == 201){
+                                    Intent intent = new Intent(getContext(), DriverActivity.class);
+                                    Log.d("DriverActivity",response.body().getAsJsonPrimitive("message").getAsString());
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast.makeText(getContext(),"Status not 201",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(getContext(),"response.bode()=null",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        else {
+                            Toast.makeText(getContext(),"You are not Driver",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(getContext(),"OnFailure"+t.getMessage(),Toast.LENGTH_SHORT).show();
+                        Log.d("OnFailure",t.getMessage());
+                    }
+                });
             }
         });
         return view;

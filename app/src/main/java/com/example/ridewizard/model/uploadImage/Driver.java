@@ -6,17 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Driver {
-    private int id;
-    public int getId() {
-        return id;
-    }
     private int userID;
     public int getUserId() {
         return userID;
-    }
-    public int getIdByUserID(int userId){
-        userId = this.userID;
-        return userId+this.id;
     }
     private String phNo;
     public String getPhNo(){

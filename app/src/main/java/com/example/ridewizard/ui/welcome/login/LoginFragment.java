@@ -8,11 +8,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +38,8 @@ public class LoginFragment extends Fragment {
     TextView checkPassword;
     TextView forgotPassword;
     LinearLayout btnSignIn;
+    static boolean isActive = false;
+    ImageView eye;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,12 +47,21 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        eye = view.findViewById(R.id.eye);
         userName = view.findViewById(R.id.user_name);
         password = view.findViewById(R.id.password);
         btnSignIn = view.findViewById(R.id.sign_in);
         checkMail = view.findViewById(R.id.check_mail);
         checkPassword = view.findViewById(R.id.check_password);
         forgotPassword = view.findViewById(R.id.forgot_password);
+
+        eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isActive = changeStatusVisibility(isActive);
+                togglePasswordVisibility(isActive, password, eye);
+            }
+        });
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,5 +129,15 @@ public class LoginFragment extends Fragment {
 
 
         return view;
+    }
+    private void togglePasswordVisibility(boolean isActive, EditText editText, ImageView eyeButton) {
+        int inputType = isActive ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_TEXT;
+        editText.setInputType(inputType);
+        eyeButton.setBackgroundResource(isActive ? R.drawable.baseline_remove_red_eye_24 : R.drawable.baseline_hide_eye);
+        editText.requestFocus();
+        editText.setSelection(editText.getText().length());
+    }
+    private boolean changeStatusVisibility(boolean isActive){
+        return !isActive;
     }
 }

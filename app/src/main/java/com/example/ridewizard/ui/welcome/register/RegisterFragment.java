@@ -7,11 +7,13 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.ridewizard.R;
 import com.example.ridewizard.model.DAO.UserDAO;
@@ -30,6 +32,8 @@ public class RegisterFragment extends Fragment {
     EditText phone;
     EditText password;
     AppCompatButton btnSignUp;
+    static boolean isActive = false;
+    ImageView eye;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,10 +42,19 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         fullName = view.findViewById(R.id.full_name);
+        eye = view.findViewById(R.id.eye);
         email = view.findViewById(R.id.email);
         phone = view.findViewById(R.id.phone);
         password = view.findViewById(R.id.password);
         btnSignUp = view.findViewById(R.id.sign_up);
+
+        eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isActive = changeStatusVisibility(isActive);
+                togglePasswordVisibility(isActive, password, eye);
+            }
+        });
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,5 +90,15 @@ public class RegisterFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void togglePasswordVisibility(boolean isActive, EditText editText, ImageView eyeButton) {
+        int inputType = isActive ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_TEXT;
+        editText.setInputType(inputType);
+        eyeButton.setBackgroundResource(isActive ? R.drawable.baseline_remove_red_eye_24 : R.drawable.baseline_hide_eye);
+        editText.requestFocus();
+        editText.setSelection(editText.getText().length());
+    }
+    private boolean changeStatusVisibility(boolean isActive){
+        return !isActive;
     }
 }

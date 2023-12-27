@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -32,6 +33,9 @@ import retrofit2.Response;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     ImageButton bt_back;
+    FrameLayout bg_old;
+    FrameLayout bg_new;
+    FrameLayout bg_re_new;
     EditText old_password;
     EditText new_password;
     EditText re_new_password;
@@ -42,6 +46,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     ImageButton eye3;
     String token;
     static boolean isActive1 = false;
+    static boolean isActive2 = false;
+    static boolean isActive3 = false;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -50,6 +57,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         bt_back = findViewById(R.id.bt_back);
+        bg_old = findViewById(R.id.bg_old);
+        bg_new = findViewById(R.id.bg_new);
+        bg_re_new = findViewById(R.id.bg_re_new);
         old_password = findViewById(R.id.old_password);
         new_password = findViewById(R.id.new_password);
         re_new_password = findViewById(R.id.re_new_password);
@@ -59,30 +69,62 @@ public class ChangePasswordActivity extends AppCompatActivity {
         eye2 = findViewById(R.id.eye2);
         eye3 = findViewById(R.id.eye3);
 
-        eye1.setOnClickListener(view -> togglePasswordVisibility(old_password, eye1));
-        eye2.setOnClickListener(view -> togglePasswordVisibility(new_password, eye2));
-        eye3.setOnClickListener(view -> togglePasswordVisibility(re_new_password, eye3));
+        old_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { changeBorderEditText(bg_old, hasFocus); }
+        });
+        new_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { changeBorderEditText(bg_new, hasFocus); }
+        });
+        re_new_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { changeBorderEditText(bg_re_new, hasFocus); }
+        });
+
+        eye1.setOnClickListener(view -> {
+            isActive1 = changeStatusVisibility(isActive1);
+            togglePasswordVisibility(isActive1, old_password, eye1);
+        });
+        eye2.setOnClickListener(view -> {
+            isActive2 = changeStatusVisibility(isActive2);
+            togglePasswordVisibility(isActive2, new_password, eye2);
+        });
+        eye3.setOnClickListener(view -> {
+            isActive3 = changeStatusVisibility(isActive3);
+            togglePasswordVisibility(isActive3, re_new_password, eye3);
+        });
 
         bt_save.setOnClickListener(view -> handleChangePasswordClick());
 
         bt_back.setOnClickListener(view -> finish());
     }
 
-    private void togglePasswordVisibility(EditText editText, ImageButton eyeButton) {
-        isActive1 = !isActive1;
-        int inputType = isActive1 ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_TEXT;
+    private void togglePasswordVisibility(boolean isActive, EditText editText, ImageButton eyeButton) {
+        int inputType = isActive ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_TEXT;
         editText.setInputType(inputType);
-        eyeButton.setBackgroundResource(isActive1 ? R.drawable.baseline_remove_red_eye_24 : R.drawable.baseline_hide_eye);
+        eyeButton.setBackgroundResource(isActive ? R.drawable.baseline_remove_red_eye_24 : R.drawable.baseline_hide_eye);
+        editText.requestFocus();
+        editText.setSelection(editText.getText().length());
     }
-
+    private boolean changeStatusVisibility(boolean isActive){
+        return !isActive;
+    }
+    private void changeBorderEditText(FrameLayout frameLayout, boolean hasFocus) {
+        if (hasFocus) {
+            frameLayout.setBackgroundResource(R.drawable.border_edit_text_focused);
+        } else {
+            frameLayout.setBackgroundResource(R.drawable.border_edit_text);
+        }
+    }
     private void handleChangePasswordClick() {
         if (isAnyFieldEmpty()) {
-            showError("Please fill the full information.");
+            showError("Please fill the full information");
             return;
         }
 
         if (!new_password.getText().toString().equals(re_new_password.getText().toString())) {
-            showError("The new password doesn't match.");
+            showError("The new password doesn't match");
             return;
         }
 //        ________________________________________________

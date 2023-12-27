@@ -102,20 +102,6 @@ public class UploadImageActivity extends AppCompatActivity {
                 openCamera();
             }
         });
-        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId",0);
-        String token = "Bearer " + sharedPreferences.getString("accessToken","");
-        UserDAO.getInstance().getProfileDriverId(token,userId).enqueue(new Callback<ProfileDriver>() {
-            @Override
-            public void onResponse(Call<ProfileDriver> call, Response<ProfileDriver> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ProfileDriver> call, Throwable t) {
-
-            }
-        });
 
     }
     private void methodSetText(List<String[]> data){

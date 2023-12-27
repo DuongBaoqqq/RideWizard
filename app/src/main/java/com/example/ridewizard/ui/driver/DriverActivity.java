@@ -2,6 +2,7 @@ package com.example.ridewizard.ui.driver;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class DriverActivity extends AppCompatActivity {
         orderDriverFragment = new OrderDriverFragment();
         mapFragment = new MapFragment();
         moreFragment = new MoreFragment();
-
+        Toast.makeText(getApplicationContext(),"You are Driver",Toast.LENGTH_SHORT).show();
         getSupportFragmentManager().beginTransaction().replace(R.id.frag,currentFragment).commit();
         navigation = findViewById(R.id.navigation);
         navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

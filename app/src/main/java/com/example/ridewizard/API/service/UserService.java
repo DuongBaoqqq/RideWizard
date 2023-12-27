@@ -9,7 +9,7 @@ import com.example.ridewizard.model.uploadavatar.UploadAvatar;
 
 import com.example.ridewizard.model.user.UserResponse;
 import com.example.ridewizard.model.verify.Verify;
-
+import com.google.gson.JsonObject;
 
 
 import okhttp3.MultipartBody;
@@ -22,8 +22,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
-
-import retrofit2.http.PATCH;
 
 import retrofit2.http.POST;
 
@@ -60,6 +58,10 @@ public interface UserService {
             @Header("Authorization") String token,
             @Field("currentPassword") String oldPassword,
             @Field("newPassword") String newPassword);
+    @GET("/api/v1/drivers/drive")
+    Call<JsonObject> checkDriver(
+            @Header("Authorization") String token
+    );
     @Multipart
     @PUT("/api/v1/drivers/identification/upload")
     Call<LoadImageResponse> uploadImages(
@@ -68,7 +70,7 @@ public interface UserService {
             @Part MultipartBody.Part image
     );
 
-    @GET("api/v1/drivers/identification/{id}")
+    @GET("api/v1/drivers/identification/{user_id}")
     Call<ProfileDriver> getProfileDriverById(@Header("Authorization") String token,
-                                             @Path("id") int userId);
+                                             @Path("user_id") int userId);
 }
