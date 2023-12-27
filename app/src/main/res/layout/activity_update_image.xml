@@ -45,7 +45,7 @@
             android:id="@+id/name_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Photo verification"
+            android:text="@string/photo_verification"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
